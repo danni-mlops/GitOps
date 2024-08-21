@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: regauth-fe
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: regauth-fe
+  template:
+    metadata:
+      labels:
+        app: regauth-fe
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: regauth-fe
+        image: 192.168.0.54:8091/reg-auth:latest
+        resources:
+          limits:
+            memory: 2Gi
+            cpu: 2
+          requests:
+            memory: 1Gi
+            cpu: 1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
